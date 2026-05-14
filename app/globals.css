@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Rotating Footer Words Animation */
+
+@keyframes spinWords {
+  0%,
+  25% {
+    transform: translateY(0);
+  }
+
+  33%,
+  58% {
+    transform: translateY(-100px);
+  }
+
+  66%,
+  91% {
+    transform: translateY(-200px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Navbar Typing Dots Animation */
+
+@keyframes typingDot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    background-color: rgb(0 0 0 / 0.4);
+  }
+
+  30% {
+    transform: translateY(-4px);
+    background-color: rgb(0 0 0 / 1);
+  }
+}
+
+@keyframes scrollX {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
