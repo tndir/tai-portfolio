@@ -33,7 +33,7 @@ useEffect(() => {
     <section className="bg-white overflow-hidden" ref={ref}>
 
       {/* Label */}
-      <p className="reveal opacity-0 translate-y-8 blur-sm transition-all duration-700 ease-out text-xs tracking-widest uppercase text-black/40 mb-10 text-center">
+      <p className="reveal opacity-0 translate-y-8 blur-sm transition-all duration-700 ease-out text-xs tracking-widest uppercase text-black/40 mb-10 text-center pt-12">
         Trusted By
       </p>
 

@@ -7,7 +7,7 @@ const projects = [
     id: 1,
     client: "Nene Chicken",
     category: "Video + Photo",
-    image: "/Images/SnapInsta.to_525899523_17918403495120722_8963852674745615430_n.jpg",
+    image: "/Images/abstract-painting-texture-with-orange-green-and-2026-03-25-23-56-46-utc.webp",
     link: "/work/nene-chicken",
   },
   {

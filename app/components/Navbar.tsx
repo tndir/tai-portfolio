@@ -42,7 +42,7 @@ export default function Navbar() {
       <div
         onMouseEnter={() => isScrolled && setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
-        className={`flex items-center rounded-full border border-black/10 bg-white/80 shadow-sm backdrop-blur-md transition-all duration-500 ${
+        className={`flex items-center rounded-full border border-black/10 bg-white/50 shadow-sm backdrop-blur-lg transition-all duration-500 ${
           isScrolled && !isExpanded
             ? "scale-90 px-5 py-3"
             : "scale-100 px-6 py-4"
