@@ -4,7 +4,7 @@ import { Mail } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import Navbar from "./Navbar"
 import Footer from "./Footer"
-import { allProjects } from "../data/projects"
+import { allProjects } from "@/app/data/projects"
 
 type Props = {
   title: string
