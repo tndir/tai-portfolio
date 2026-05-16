@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { allProjects } from "../data/projects"
+import { allProjects } from "@/data/projects"
 
 export default function WorkGrid() {
   const ref = useRef<HTMLDivElement>(null)
