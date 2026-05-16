@@ -53,7 +53,6 @@ export default function ProjectLayout({
   description,
   scope,
   images,
-  moreProjects,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
