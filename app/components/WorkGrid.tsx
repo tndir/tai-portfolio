@@ -1,40 +1,15 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-
-const projects = [
-  {
-    id: 1,
-    client: "Nene Chicken",
-    category: "Video + Photo",
-    image: "/Images/abstract-painting-texture-with-orange-green-and-2026-03-25-23-56-46-utc.webp",
-    link: "/work/nene-chicken",
-  },
-  {
-    id: 2,
-    client: "PappaRich",
-    category: "Video + Photo",
-    image: "/Images/lucas-kapla-R79qkPYvrcM-unsplash.jpg",
-    link: "/work/papparich",
-  },
-  {
-    id: 3,
-    client: "AptoNow",
-    category: "Video",
-    image: "/Images/pexels-lisa-fotios-7918258.jpg",
-    link: "/work/aptonow",
-  },
-  {
-    id: 4,
-    client: "SecondZ",
-    category: "Video",
-    image: "/Images/pramod-tiwari-f8gKP82Quh4-unsplash.jpg",
-    link: "/work/secondz",
-  },
-]
+import { allProjects } from "../data/projects"
 
 export default function WorkGrid() {
   const ref = useRef<HTMLDivElement>(null)
+
+  // Show featured projects if manually set, otherwise show last 4
+  const featuredProjects = allProjects.some((p) => p.featured)
+    ? allProjects.filter((p) => p.featured).reverse()
+    : allProjects.slice(-4).reverse()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -46,7 +21,6 @@ export default function WorkGrid() {
               "translate-y-0",
               "blur-none"
             )
-
             entry.target.classList.remove(
               "opacity-0",
               "translate-y-8",
@@ -59,7 +33,6 @@ export default function WorkGrid() {
     )
 
     const children = ref.current?.querySelectorAll(".reveal")
-
     children?.forEach((el) => observer.observe(el))
 
     return () => observer.disconnect()
@@ -75,9 +48,9 @@ export default function WorkGrid() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {projects.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <a
-              href={project.link}
+              href={project.href}
               key={project.id}
               style={{ transitionDelay: `${index * 100}ms` }}
               className="reveal group block cursor-pointer opacity-0 translate-y-8 blur-sm transition-all duration-700 ease-out"
@@ -100,7 +73,6 @@ export default function WorkGrid() {
                 {/* Bottom overlay */}
                 <div className="absolute inset-0 flex flex-col justify-end p-5 transition-opacity duration-300 group-hover:opacity-0">
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-
                   <div className="relative z-10 flex items-end justify-between">
                     <span className="text-lg font-semibold tracking-tight text-white">
                       {project.client}
@@ -118,6 +90,16 @@ export default function WorkGrid() {
             </a>
           ))}
         </div>
+      {/* View all projects */}
+        <div className="mt-24 text-center">
+          
+          <a  href="/work"
+            className="text-lg font-black uppercase tracking-widest text-black/90 hover:text-black transition-colors duration-300"
+          >
+            View other projects ↗
+          </a>
+        </div>
+
       </div>
     </section>
   )

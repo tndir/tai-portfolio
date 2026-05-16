@@ -24,17 +24,36 @@ export default function Navbar() {
   }, [])
 
   function handleNavClick(e: React.MouseEvent, href: string) {
-    e.preventDefault()
+  e.preventDefault()
 
-    const target = document.querySelector(href)
-
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" })
+  if (window.location.pathname !== "/") {
+    if (href === "#work") {
+      window.location.href = "/work"
+      return
     }
-
-    setIsExpanded(false)
-    setMobileMenuOpen(false)
+    if (href === "#services") {
+      window.location.href = "/#services"
+      return
+    }
+    if (href === "#contact") {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })
+      setIsExpanded(false)
+      setMobileMenuOpen(false)
+      return
+    }
+    if (href === "#about") {
+      window.location.href = "/#about"
+      return
+    }
   }
+
+  const target = document.querySelector(href)
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth" })
+  }
+  setIsExpanded(false)
+  setMobileMenuOpen(false)
+}
 
   return (
     <nav className="fixed top-6 left-1/2 z-50 w-[90vw] -translate-x-1/2 md:w-auto flex flex-col items-center">
@@ -50,10 +69,12 @@ export default function Navbar() {
       >
         {/* Brand */}
         <a
-          href="#"
+          href="/"
           onClick={(e) => {
-            e.preventDefault()
-            window.scrollTo({ top: 0, behavior: "smooth" })
+            if (window.location.pathname === "/") {
+              e.preventDefault()
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }
             setIsExpanded(false)
             setMobileMenuOpen(false)
           }}
