@@ -61,13 +61,18 @@ export default function Contact() {
           in mind?
         </h2>
 
-        {/* Contact Button */}
+        {/* Contact Button — pill shaped frosted glass */}
         <button
           onClick={() => setIsOpen(true)}
-          className="reveal opacity-0 translate-y-8 blur-sm transition-all duration-700 ease-out delay-200 border border-black px-8 py-4 text-xs uppercase tracking-[0.25em] hover:bg-black hover:text-white transition-all duration-300"
+          className="reveal opacity-0 translate-y-8 blur-sm transition-all duration-700 ease-out delay-200 bg-black/10 backdrop-blur-md border border-black/20 px-8 py-4 rounded-full text-xs uppercase tracking-[0.25em] hover:bg-black hover:text-white transition-all duration-300"
         >
           Get In Touch
         </button>
+
+        {/* Melbourne */}
+        <p className="text-xs uppercase tracking-[0.25em] text-black/40 mt-12">
+          Melbourne, Australia
+        </p>
 
       </section>
 

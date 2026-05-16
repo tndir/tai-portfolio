@@ -74,11 +74,49 @@ body {
   }
 }
 
+/* Client list scrolling */
+
 @keyframes scrollX {
   0% {
     transform: translateX(0);
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+/* Rotating words 2 */
+@keyframes spinWords2 {
+  0%, 25% { 
+    transform: translateY(0); 
+    filter: blur(0px);
+    opacity: 1;
+  }
+  28% { 
+    filter: blur(4px);
+    opacity: 0;
+  }
+  33%, 58% { 
+    transform: translateY(-60px); 
+    filter: blur(0px);
+    opacity: 1;
+  }
+  61% { 
+    filter: blur(4px);
+    opacity: 0;
+  }
+  66%, 91% { 
+    transform: translateY(-120px); 
+    filter: blur(0px);
+    opacity: 1;
+  }
+  94% { 
+    filter: blur(4px);
+    opacity: 0;
+  }
+  100% { 
+    transform: translateY(0); 
+    filter: blur(0px);
+    opacity: 1;
   }
 }

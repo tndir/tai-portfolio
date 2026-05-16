@@ -56,7 +56,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        {/* Bottom fade */}
+        <div className="fixed bottom-0 left-0 right-0 h-16 pointer-events-none z-30 backdrop-blur-sm [mask-image:linear-gradient(to_top,black_30%,transparent)]" />
+      </body>
     </html>
   );
 }

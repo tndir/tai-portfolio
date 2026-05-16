@@ -5,33 +5,33 @@ import { useEffect, useRef } from "react"
 const services = [
   {
     number: "01",
-    title: "Video Production",
+    title: "Videography",
     description:
-      "From concept to delivery, I craft cinematic video content that tells your brand's story with intention — commercials, reels, brand films and everything in between.",
-    tags: ["Brand Films", "Reels", "Commercials", "Drone", "Editing", "Colour Grading"],
-    bg: "bg-black",
+      "From concept to delivery, producing purposeful video content for brands.",
+    tags: ["Cinematography", "Directing", "Editing"],
+    bg: "bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400",
     text: "text-white",
-    tagStyle: "border-white/20 text-white/60",
+    tagStyle: "border-white/20 text-white/80",
   },
   {
     number: "02",
     title: "Photography",
     description:
-      "Still imagery that stops the scroll. Product, lifestyle, and editorial photography that captures your brand at its best.",
-    tags: ["Product", "Lifestyle", "Editorial", "Events", "Portraits", "Campaign"],
-    bg: "bg-neutral-100",
-    text: "text-black",
-    tagStyle: "border-black/20 text-black/50",
+      "Product, lifestyle, and editorial imagery designed to capture attention and elevate brands.",
+    tags: ["Photography", "Retouching"],
+    bg: "bg-gradient-to-br from-pink-500 via-red-500 to-orange-400",
+    text: "text-white",
+    tagStyle: "border-white/20 text-white/80",
   },
   {
     number: "03",
     title: "Content Production",
     description:
-      "End-to-end content creation built for social. Strategy, shooting, and editing — all tailored to perform across platforms.",
-    tags: ["Social Media", "Short Form", "UGC", "Strategy", "Instagram", "TikTok"],
-    bg: "bg-neutral-800",
+      "End-to-end social content production from strategy and shooting through to editing.",
+    tags: ["Shot Planning", "Creative Direction"],
+    bg: "bg-gradient-to-br from-orange-400 via-pink-400 to-yellow-300",
     text: "text-white",
-    tagStyle: "border-white/20 text-white/60",
+    tagStyle: "border-white/20 text-white/80",
   },
 ]
 
@@ -77,7 +77,7 @@ export default function Services() {
             <div
               key={index}
               style={{ transitionDelay: `${150 + index * 100}ms` }}
-              className={`reveal opacity-0 translate-y-8 blur-sm transition-all duration-700 ease-out ${service.bg} ${service.text} rounded-2xl p-8 flex flex-col justify-between min-h-[420px]`}
+              className={`reveal opacity-0 translate-y-8 blur-sm transition-all duration-700 ease-out ${service.bg} ${service.text} rounded-2xl p-8 flex flex-col justify-between aspect-square`}
             >
 
               {/* Top — Number + Tags */}
@@ -86,17 +86,19 @@ export default function Services() {
                   {service.number}
                 </span>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {service.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className={`text-xs uppercase tracking-widest border rounded-full px-3 py-1 ${service.tagStyle}`}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                {/* Tags — auto scrolling, full bleed */}
+                  <div className="overflow-hidden -mx-8">
+                    <div className="flex gap-2 animate-[scrollX_8s_linear_infinite] px-8">
+                      {[...service.tags, ...service.tags].map((tag, i) => (
+                        <span
+                          key={i}
+                          className="text-xs uppercase tracking-widest rounded-full px-3 py-1 whitespace-nowrap bg-white/20 backdrop-blur-sm text-white border border-white/30"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
               </div>
 
               {/* Bottom — Title + Description */}
