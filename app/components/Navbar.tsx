@@ -85,11 +85,15 @@ export default function Navbar() {
           }}
           className="flex items-center gap-3"
         >
-          <div
-            className={`rounded-full bg-black transition-all duration-500 ${
-              isScrolled && !isExpanded ? "h-7 w-7" : "h-8 w-8"
-            }`}
-          />
+          <div className={`rounded-full bg-transparent flex items-center justify-center transition-all duration-500 ${
+            isScrolled && !isExpanded ? "h-7 w-7" : "h-8 w-8"
+          }`}>
+            <img
+              src="/Images/tndir_logo-only-01.png"
+              alt="Tai Nguyen"
+              className="w-full h-full object-contain p-1"
+            />
+          </div>
 
           <span
             className={`whitespace-nowrap font-semibold uppercase tracking-tight text-black transition-all duration-500 ${

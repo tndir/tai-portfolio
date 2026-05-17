@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import { allProjects } from "@/data/projects"
+import ProjectCard from "./ProjectCard"
 
 export default function WorkGrid() {
   const ref = useRef<HTMLDivElement>(null)
@@ -48,58 +49,19 @@ export default function WorkGrid() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {featuredProjects.map((project, index) => (
-            <a
-              href={project.href}
-              key={project.id}
-              style={{ transitionDelay: `${index * 100}ms` }}
-              className="reveal group block cursor-pointer opacity-0 translate-y-8 blur-sm transition-all duration-700 ease-out"
-            >
-              {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-                <img
-                  src={project.image}
-                  alt={project.client}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-
-                {/* Category pill */}
-                <div className="absolute left-4 top-4 transition-opacity duration-300 group-hover:opacity-0">
-                  <span className="rounded-full bg-black/90 px-4 py-3 text-xs text-white backdrop-blur-sm">
-                    {project.category}
-                  </span>
-                </div>
-
-                {/* Bottom overlay */}
-                <div className="absolute inset-0 flex flex-col justify-end p-5 transition-opacity duration-300 group-hover:opacity-0">
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                  <div className="relative z-10 flex items-end justify-between">
-                    <span className="text-lg font-semibold tracking-tight text-white">
-                      {project.client}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Hover text */}
-                <div className="absolute inset-0 flex items-end justify-end p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest text-white">
-                    ↗ View Project
-                  </span>
-                </div>
-              </div>
-            </a>
+          {featuredProjects.map((project) => (
+            <ProjectCard key={project.id} {...project} />
           ))}
         </div>
-      {/* View all projects */}
+        {/* View all projects */}
         <div className="mt-24 text-center">
-          
-          <a  href="/work"
+          <a
+            href="/work"
             className="text-lg font-black uppercase tracking-widest text-black/90 hover:text-black transition-colors duration-300"
           >
             View other projects ↗
           </a>
         </div>
-
       </div>
     </section>
   )

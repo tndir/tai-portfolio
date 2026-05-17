@@ -55,14 +55,17 @@ export default function About() {
           </div>
         </div>
 
-        {/* Photo */}
-        <div className="reveal opacity-0 translate-y-8 blur-sm transition-all duration-700 ease-out delay-200 overflow-hidden rounded-2xl aspect-square w-full md:max-w-sm shadow-2xl">
-          <img
-            src="/Images/about me-photo.jpeg"
-            alt="Tai Nguyen"
-            loading="lazy"
-            className="w-full h-full object-cover"
-          />
+        {/* Photo — right aligned on desktop, full width on mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div /> {/* empty left column on desktop */}
+          <div className="reveal opacity-0 translate-y-8 blur-sm transition-all duration-700 ease-out delay-200 overflow-hidden rounded-2xl aspect-square w-full md:max-w-xs md:ml-auto shadow-2xl">
+            <img
+              src="/Images/about me-photo.jpeg"
+              alt="Tai Nguyen"
+              loading="lazy"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
 
       </div>

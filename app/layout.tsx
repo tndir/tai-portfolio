@@ -15,6 +15,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Tai Nguyen | Video Production & Photography Melbourne",
   description: "Melbourne-based creative executing visuals that connect and convert. Specialising in video production, photography and content creation for brands.",
+  icons: {
+  icon: "/Images/tndir_logo-only-01.png",
+  apple: "/Images/tndir_logo-only-01.png",
+},  
   keywords: ["video production melbourne", "photographer melbourne", "brand videographer", "content creation melbourne", "Tai Nguyen"],
   authors: [{ name: "Tai Nguyen" }],
   creator: "Tai Nguyen",
