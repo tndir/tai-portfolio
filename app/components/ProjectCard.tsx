@@ -11,7 +11,6 @@ type Props = {
 }
 
 export default function ProjectCard({
-  id,
   client,
   category,
   image,
@@ -26,8 +25,9 @@ export default function ProjectCard({
 
     const extractColor = async () => {
       try {
-        const ColorThief = (await import("colorthief")).default
-        const colorThief = new ColorThief()
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const colorThiefModule = (await import("colorthief")) as any
+        const colorThief = new colorThiefModule.default()
 
         if (img.complete) {
           const color = colorThief.getColor(img)
