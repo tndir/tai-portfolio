@@ -6,6 +6,7 @@ import Navbar from "./Navbar"
 import Footer from "./Footer"
 import { allProjects } from "@/data/projects"
 import ProjectCard from "./ProjectCard"
+import ContactModal from "./ContactModal"
 
 type Props = {
   title: string
@@ -25,7 +26,6 @@ export default function ProjectLayout({
   images,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
   const [showMailBtn, setShowMailBtn] = useState(false)
   const ctaRef = useRef<HTMLDivElement>(null)
 
@@ -33,18 +33,6 @@ export default function ProjectLayout({
     .sort((a, b) => b.id - a.id)
     .filter((p) => p.client !== client)
     .slice(0, 2)
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    const form = e.currentTarget
-    const data = new FormData(form)
-    await fetch("https://formspree.io/f/xqenowql", {
-      method: "POST",
-      body: data,
-      headers: { Accept: "application/json" },
-    })
-    setSubmitted(true)
-  }
 
   useEffect(() => {
     function handleScroll() {
@@ -179,10 +167,9 @@ export default function ProjectLayout({
             </h2>
             <button
               onClick={() => setIsOpen(true)}
-              className="flex items-center gap-2 rounded-full bg-black px-6 py-3 text-xs uppercase tracking-widest text-white transition-colors hover:bg-black/80"
+              className="shadow-lg bg-white text-black border border-black/20 px-6 py-3 rounded-full text-xs uppercase tracking-widest hover:bg-black hover:text-white hover:border-black transition-colors duration-75"
             >
-              <Mail size={18} strokeWidth={1.5} />
-              Let&apos;s Talk
+              Let's Talk
             </button>
           </div>
         </div>
@@ -204,54 +191,7 @@ export default function ProjectLayout({
         </div>
       </button>
 
-      {/* Modal */}
-      {isOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-sm">
-          <div className="flex min-h-full items-center justify-center p-4">
-            <div className="relative w-full max-w-md rounded-2xl border border-white/80 bg-white/90 p-8 shadow-2xl backdrop-blur-xl">
-              <button
-                onClick={() => { setIsOpen(false); setSubmitted(false) }}
-                className="absolute right-4 top-4 text-xl text-black/40 transition-colors hover:text-black"
-              >
-                ✕
-              </button>
-
-              {submitted ? (
-                <div className="flex flex-col items-center justify-center gap-4 py-12">
-                  <p className="text-2xl font-bold tracking-tight text-black">Message Sent!</p>
-                  <p className="text-center text-sm text-black/50">
-                    Thanks for reaching out. I&apos;ll get back to you soon.
-                  </p>
-                  <button
-                    onClick={() => { setIsOpen(false); setSubmitted(false) }}
-                    className="mt-4 border border-black px-6 py-3 text-xs uppercase tracking-widest transition-all duration-300 hover:bg-black hover:text-white"
-                  >
-                    Close
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <h3 className="mb-1 text-xl font-bold tracking-tight text-black">
-                    Let&apos;s Talk
-                  </h3>
-                  <p className="mb-8 text-sm text-black/40">
-                    Fill out the form below and I&apos;ll be in touch.
-                  </p>
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <input type="text" name="name" placeholder="Your Name" required className="rounded-lg border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-black" />
-                    <input type="email" name="email" placeholder="Your Email" required className="rounded-lg border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-black" />
-                    <input type="text" name="subject" placeholder="Subject" required className="rounded-lg border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-black" />
-                    <textarea name="message" placeholder="Tell me about your project..." required rows={4} className="resize-none rounded-lg border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-black" />
-                    <button type="submit" className="mt-2 rounded-lg bg-black py-4 text-xs uppercase tracking-widest text-white transition-colors hover:bg-black/80">
-                      Send Message
-                    </button>
-                  </form>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      <ContactModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   )
 }

@@ -43,7 +43,7 @@ export default function ContactModal({
           <div className="flex flex-col items-center justify-center py-12 gap-4">
             <p className="text-2xl font-bold tracking-tight">Message Sent!</p>
             <p className="text-sm text-black/50 text-center">
-              Thanks for reaching out — I'll get back to you soon.
+              Thanks for reaching out! I'll get back to you soon.
             </p>
             <button
               onClick={() => { onClose(); setSubmitted(false) }}

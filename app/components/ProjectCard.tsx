@@ -1,13 +1,14 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useState, useEffect } from "react"
 
 type Props = {
-  id: number
+  id?: number
   client: string
   category: string
   image: string
   href: string
+  gradient?: string
 }
 
 export default function ProjectCard({
@@ -15,45 +16,47 @@ export default function ProjectCard({
   category,
   image,
   href,
+  gradient,
 }: Props) {
-  const imgRef = useRef<HTMLImageElement>(null)
   const [gradientColor, setGradientColor] = useState("0,0,0")
 
   useEffect(() => {
-    const img = imgRef.current
-    if (!img) return
+    if (gradient) {
+      // Use manually set colour if provided
+      setGradientColor(gradient)
+    } else {
+      // Generate a random vibrant colour
+      const hue = Math.floor(Math.random() * 360)
+      const saturation = 60 + Math.floor(Math.random() * 40) // 60-100%
+      const lightness = 20 + Math.floor(Math.random() * 20) // 20-40%
 
-    const extractColor = async () => {
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const colorThiefModule = (await import("colorthief")) as any
-        const colorThief = new colorThiefModule.default()
-
-        if (img.complete) {
-          const color = colorThief.getColor(img)
-          setGradientColor(`${color[0]},${color[1]},${color[2]}`)
-        } else {
-          img.addEventListener("load", () => {
-            const color = colorThief.getColor(img)
-            setGradientColor(`${color[0]},${color[1]},${color[2]}`)
-          })
-        }
-      } catch (err) {
-        setGradientColor("0,0,0")
+      // Convert HSL to RGB
+      const h = hue / 360
+      const s = saturation / 100
+      const l = lightness / 100
+      const q = l < 0.5 ? l * (1 + s) : l + s - l * s
+      const p = 2 * l - q
+      const hue2rgb = (t: number) => {
+        if (t < 0) t += 1
+        if (t > 1) t -= 1
+        if (t < 1 / 6) return p + (q - p) * 6 * t
+        if (t < 1 / 2) return q
+        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6
+        return p
       }
+      const r = Math.round(hue2rgb(h + 1 / 3) * 255)
+      const g = Math.round(hue2rgb(h) * 255)
+      const b = Math.round(hue2rgb(h - 1 / 3) * 255)
+      setGradientColor(`${r},${g},${b}`)
     }
-
-    extractColor()
-  }, [])
+  }, [gradient])
 
   return (
     <a href={href} className="group block cursor-pointer">
       <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
         <img
-          ref={imgRef}
           src={image}
           alt={client}
-          crossOrigin="anonymous"
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -65,11 +68,11 @@ export default function ProjectCard({
           </span>
         </div>
 
-        {/* Dynamic colour gradient */}
+        {/* Gradient */}
         <div
           className="absolute inset-0 flex flex-col justify-end p-5 transition-opacity duration-300 group-hover:opacity-0"
           style={{
-            background: `linear-gradient(to top, rgba(${gradientColor},0.9) 0%, rgba(${gradientColor},0.3) 40%, transparent 100%)`,
+            background: `linear-gradient(to top, rgba(${gradientColor},0.9) 0%, rgba(${gradientColor},0.3) 15%, transparent 25%)`,
           }}
         >
           <span className="relative z-10 text-lg font-semibold tracking-tight text-white">

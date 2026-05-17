@@ -14,12 +14,19 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Tai Nguyen | Video Production & Photography Melbourne",
-  description: "Melbourne-based creative executing visuals that connect and convert. Specialising in video production, photography and content creation for brands.",
+  description:
+    "Melbourne-based creative executing visuals that connect and convert. Specialising in video production, photography and content creation for brands.",
   icons: {
-  icon: "/Images/tndir_logo-only-01.png",
-  apple: "/Images/tndir_logo-only-01.png",
-},  
-  keywords: ["video production melbourne", "photographer melbourne", "brand videographer", "content creation melbourne", "Tai Nguyen"],
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
+  keywords: [
+    "video production melbourne",
+    "photographer melbourne",
+    "brand videographer",
+    "content creation melbourne",
+    "Tai Nguyen",
+  ],
   authors: [{ name: "Tai Nguyen" }],
   creator: "Tai Nguyen",
   openGraph: {
@@ -28,7 +35,8 @@ export const metadata: Metadata = {
     url: "https://tai-portfolio-zeta.vercel.app",
     siteName: "Tai Nguyen",
     title: "Tai Nguyen | Video Production & Photography Melbourne",
-    description: "Melbourne-based creative executing visuals that connect and convert. Specialising in video production, photography and content creation for brands.",
+    description:
+      "Melbourne-based creative executing visuals that connect and convert. Specialising in video production, photography and content creation for brands.",
     images: [
       {
         url: "/Images/about me-photo.jpeg",
@@ -41,14 +49,15 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Tai Nguyen | Video Production & Photography Melbourne",
-    description: "Melbourne-based creative executing visuals that connect and convert.",
+    description:
+      "Melbourne-based creative executing visuals that connect and convert.",
     images: ["/Images/about me-photo.jpeg"],
   },
   robots: {
     index: true,
     follow: true,
   },
-};
+}
 
 export default function RootLayout({
   children,
