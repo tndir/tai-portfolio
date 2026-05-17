@@ -54,7 +54,7 @@ export default function Hero() {
 
       {/* Scroll Indicator */}
       <div
-        className={`absolute bottom-10 left-1/2 -translate-x-1/2 transition-all duration-500 ${
+      className={`absolute bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 transition-all duration-500 z-40 ${
           showScroll ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >

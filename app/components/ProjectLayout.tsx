@@ -26,28 +26,28 @@ export default function ProjectLayout({
   const [isOpen, setIsOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [showMailBtn, setShowMailBtn] = useState(false)
-  const [randomProjects, setRandomProjects] = useState<typeof allProjects>([])
   const ctaRef = useRef<HTMLDivElement>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-
     const form = e.currentTarget
     const data = new FormData(form)
-
     await fetch("https://formspree.io/f/xqenowql", {
       method: "POST",
       body: data,
       headers: { Accept: "application/json" },
     })
-
     setSubmitted(true)
   }
+
+  const moreProjects = [...allProjects]
+  .sort((a, b) => b.id - a.id)
+  .filter((p) => p.client !== client)
+  .slice(0, 2)
 
   useEffect(() => {
     function handleScroll() {
       const scrolled = window.scrollY > 300
-
       if (ctaRef.current) {
         const rect = ctaRef.current.getBoundingClientRect()
         const ctaVisible = rect.top < window.innerHeight
@@ -56,21 +56,10 @@ export default function ProjectLayout({
         setShowMailBtn(scrolled)
       }
     }
-
     window.addEventListener("scroll", handleScroll, { passive: true })
     handleScroll()
-
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  useEffect(() => {
-    const filtered = allProjects
-      .filter((project) => project.client !== client)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 2)
-
-    setRandomProjects(filtered)
-  }, [client])
 
   return (
     <>
@@ -79,39 +68,27 @@ export default function ProjectLayout({
       <main className="min-h-screen bg-white">
         {/* Hero */}
         <div className="mx-auto max-w-7xl px-8 pb-16 pt-32">
-          <a
-            href="/work"
+          
+          <a  href="/work"
             className="mb-12 inline-block text-xs uppercase tracking-widest text-black/40 transition-colors hover:text-black"
           >
             &larr; Back
           </a>
 
-          <h1 className="mb-12 max-w-4xl text-5xl font-bold leading-none tracking-tighter text-black md:text-8xl">
+          <h1 className="mb-12 max-w-4xl text-5xl font-black leading-none tracking-tighter text-black md:text-8xl">
             {title}
           </h1>
 
           {/* Meta */}
           <div className="mb-8 flex flex-wrap items-center gap-8">
             <div className="flex items-center gap-3">
-              <span className="text-xs uppercase tracking-widest text-black/40">
-                Client
-              </span>
-
-              <span className="text-sm font-medium text-black">
-                {client}
-              </span>
+              <span className="text-xs uppercase tracking-widest text-black/40">Client</span>
+              <span className="text-sm font-medium text-black">{client}</span>
             </div>
-
             <div className="h-4 w-px bg-black/20" />
-
             <div className="flex items-center gap-3">
-              <span className="text-xs uppercase tracking-widest text-black/40">
-                Year
-              </span>
-
-              <span className="text-sm font-medium text-black">
-                {year}
-              </span>
+              <span className="text-xs uppercase tracking-widest text-black/40">Year</span>
+              <span className="text-sm font-medium text-black">{year}</span>
             </div>
           </div>
 
@@ -125,7 +102,6 @@ export default function ProjectLayout({
             <span className="mb-2 text-xs uppercase tracking-widest text-black/40">
               Scope of Work
             </span>
-
             <div className="flex flex-wrap gap-2">
               {scope.map((item) => (
                 <span
@@ -145,66 +121,26 @@ export default function ProjectLayout({
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-8 py-16">
           {images[0] && (
             <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl">
-              <img
-                src={images[0]}
-                alt={`${client} - 1`}
-                className="h-full w-full object-cover"
-              />
+              <img src={images[0]} alt={`${client} hero`} className="h-full w-full object-cover" />
             </div>
           )}
-
           {(images[1] || images[2]) && (
             <div className="grid grid-cols-2 gap-4">
               {images[1] && (
                 <div className="aspect-[4/3] overflow-hidden rounded-2xl">
-                  <img
-                    src={images[1]}
-                    alt={`${client} - 2`}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                  />
+                  <img src={images[1]} alt={`${client} image 2`} loading="lazy" className="h-full w-full object-cover" />
                 </div>
               )}
-
               {images[2] && (
                 <div className="aspect-[4/3] overflow-hidden rounded-2xl">
-                  <img
-                    src={images[2]}
-                    alt={`${client} - 3`}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                  />
+                  <img src={images[2]} alt={`${client} image 3`} loading="lazy" className="h-full w-full object-cover" />
                 </div>
               )}
             </div>
           )}
-
           {images[3] && (
             <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl">
-              <img
-                src={images[3]}
-                alt={`${client} - 4`}
-                loading="lazy"
-                className="h-full w-full object-cover"
-              />
-            </div>
-          )}
-
-          {images.slice(4).length > 0 && (
-            <div className="grid grid-cols-2 gap-4">
-              {images.slice(4).map((image, index) => (
-                <div
-                  key={index}
-                  className="aspect-[4/3] overflow-hidden rounded-2xl"
-                >
-                  <img
-                    src={image}
-                    alt={`${client} - ${index + 5}`}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              ))}
+              <img src={images[3]} alt={`${client} image 4`} loading="lazy" className="h-full w-full object-cover" />
             </div>
           )}
         </div>
@@ -214,14 +150,9 @@ export default function ProjectLayout({
           <h2 className="mb-12 text-xs uppercase tracking-widest text-black/40">
             More Projects
           </h2>
-
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {randomProjects.map((project) => (
-              <a
-                key={project.href}
-                href={project.href}
-                className="group cursor-pointer"
-              >
+            {moreProjects.map((project) => (
+              <a key={project.href} href={project.href} className="group cursor-pointer">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
                   <img
                     src={project.image}
@@ -229,19 +160,14 @@ export default function ProjectLayout({
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-
                   <div className="absolute inset-0 flex flex-col justify-end p-5 transition-opacity duration-300 group-hover:opacity-0">
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-
                     <span className="relative z-10 text-lg font-semibold tracking-tight text-white">
                       {project.client}
                     </span>
                   </div>
-
                   <div className="absolute inset-0 flex items-end justify-end p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <span className="text-xs uppercase tracking-widest text-white">
-                      ↗ View Project
-                    </span>
+                    <span className="text-xs uppercase tracking-widest text-white">↗ View Project</span>
                   </div>
                 </div>
               </a>
@@ -249,34 +175,31 @@ export default function ProjectLayout({
           </div>
 
           <div className="mt-12 text-center">
-            <a
-              href="/work"
-              className="text-sm uppercase tracking-widest text-black transition-colors hover:text-black/50"
-            >
+            <a href="/work" className="text-sm uppercase tracking-widest text-black transition-colors hover:text-black/50">
               View all projects ↗
             </a>
           </div>
 
-          {/* Bottom CTA */}
+          {/* CTA */}
           <div
+            id="contact"
             ref={ctaRef}
-            className="mt-32 flex flex-col items-center gap-6 rounded-2xl py-16 text-center"
+            className="mt-32 flex flex-col items-center gap-6 py-16 text-center"
           >
             <p className="text-xs uppercase tracking-[0.25em] text-black/40">
               Let&apos;s Work Together
             </p>
-
-            <h2 className="text-5xl font-bold leading-none tracking-tighter text-black md:text-7xl">
-              GOT A PROJECT
+            <h2 className="text-5xl font-black leading-none tracking-tighter text-black md:text-7xl">
+              Got a project
               <br />
-              IN MIND?
+              in mind?
             </h2>
-
             <button
               onClick={() => setIsOpen(true)}
               className="flex items-center gap-2 rounded-full bg-black px-6 py-3 text-xs uppercase tracking-widest text-white transition-colors hover:bg-black/80"
             >
-              <Mail size={18} strokeWidth={1.5} /> Let&apos;s Talk
+              <Mail size={18} strokeWidth={1.5} />
+              Let&apos;s Talk
             </button>
           </div>
         </div>
@@ -287,7 +210,7 @@ export default function ProjectLayout({
       {/* Floating Mail Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-8 left-1/2 z-40 -translate-x-1/2 transition-all duration-500 ${
+        className={`fixed bottom-24 md:bottom-8 left-1/2 z-40 -translate-x-1/2 transition-all duration-500 ${
           showMailBtn ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"
         }`}
       >
@@ -300,90 +223,49 @@ export default function ProjectLayout({
 
       {/* Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm">
-          <div className="relative w-full max-w-md rounded-2xl border border-white/80 bg-white/90 p-8 shadow-2xl backdrop-blur-xl">
-            <button
-              onClick={() => {
-                setIsOpen(false)
-                setSubmitted(false)
-              }}
-              className="absolute right-4 top-4 text-xl text-black/40 transition-colors hover:text-black"
-            >
-              ✕
-            </button>
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-sm">
+          <div className="flex min-h-full items-center justify-center p-4">
+            <div className="relative w-full max-w-md rounded-2xl border border-white/80 bg-white/90 p-8 shadow-2xl backdrop-blur-xl">
+              <button
+                onClick={() => { setIsOpen(false); setSubmitted(false) }}
+                className="absolute right-4 top-4 text-xl text-black/40 transition-colors hover:text-black"
+              >
+                ✕
+              </button>
 
-            {submitted ? (
-              <div className="flex flex-col items-center justify-center gap-4 py-12">
-                <p className="text-2xl font-bold tracking-tight text-black">
-                  Message Sent!
-                </p>
-
-                <p className="text-center text-sm text-black/50">
-                  Thanks for reaching out. I&apos;ll get back to you soon.
-                </p>
-
-                <button
-                  onClick={() => {
-                    setIsOpen(false)
-                    setSubmitted(false)
-                  }}
-                  className="mt-4 border border-black px-6 py-3 text-xs uppercase tracking-widest transition-all duration-300 hover:bg-black hover:text-white"
-                >
-                  Close
-                </button>
-              </div>
-            ) : (
-              <>
-                <h3 className="mb-1 text-xl font-bold tracking-tight text-black">
-                  Let&apos;s Talk
-                </h3>
-
-                <p className="mb-8 text-sm text-black/40">
-                  Fill out the form below and I&apos;ll be in touch.
-                </p>
-
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    required
-                    className="rounded-lg border border-black/10 px-4 py-3 text-sm text-black outline-none transition-colors focus:border-black"
-                  />
-
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    required
-                    className="rounded-lg border border-black/10 px-4 py-3 text-sm text-black outline-none transition-colors focus:border-black"
-                  />
-
-                  <input
-                    type="text"
-                    name="subject"
-                    placeholder="Subject"
-                    required
-                    className="rounded-lg border border-black/10 px-4 py-3 text-sm text-black outline-none transition-colors focus:border-black"
-                  />
-
-                  <textarea
-                    name="message"
-                    placeholder="Tell me about your project..."
-                    required
-                    rows={4}
-                    className="resize-none rounded-lg border border-black/10 px-4 py-3 text-sm text-black outline-none transition-colors focus:border-black"
-                  />
-
+              {submitted ? (
+                <div className="flex flex-col items-center justify-center gap-4 py-12">
+                  <p className="text-2xl font-bold tracking-tight text-black">Message Sent!</p>
+                  <p className="text-center text-sm text-black/50">
+                    Thanks for reaching out. I&apos;ll get back to you soon.
+                  </p>
                   <button
-                    type="submit"
-                    className="mt-2 rounded-lg bg-black py-4 text-xs uppercase tracking-widest text-white transition-colors hover:bg-black/80"
+                    onClick={() => { setIsOpen(false); setSubmitted(false) }}
+                    className="mt-4 border border-black px-6 py-3 text-xs uppercase tracking-widest transition-all duration-300 hover:bg-black hover:text-white"
                   >
-                    Send Message
+                    Close
                   </button>
-                </form>
-              </>
-            )}
+                </div>
+              ) : (
+                <>
+                  <h3 className="mb-1 text-xl font-bold tracking-tight text-black">
+                    Let&apos;s Talk
+                  </h3>
+                  <p className="mb-8 text-sm text-black/40">
+                    Fill out the form below and I&apos;ll be in touch.
+                  </p>
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                    <input type="text" name="name" placeholder="Your Name" required className="rounded-lg border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-black" />
+                    <input type="email" name="email" placeholder="Your Email" required className="rounded-lg border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-black" />
+                    <input type="text" name="subject" placeholder="Subject" required className="rounded-lg border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-black" />
+                    <textarea name="message" placeholder="Tell me about your project..." required rows={4} className="resize-none rounded-lg border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-black" />
+                    <button type="submit" className="mt-2 rounded-lg bg-black py-4 text-xs uppercase tracking-widest text-white transition-colors hover:bg-black/80">
+                      Send Message
+                    </button>
+                  </form>
+                </>
+              )}
+            </div>
           </div>
         </div>
       )}

@@ -36,7 +36,12 @@ export default function Navbar() {
       return
     }
     if (href === "#contact") {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })
+      const target = document.querySelector("#contact")
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" })
+      } else {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })
+      }
       setIsExpanded(false)
       setMobileMenuOpen(false)
       return

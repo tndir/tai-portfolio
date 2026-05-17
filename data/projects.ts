@@ -20,28 +20,28 @@ export type Project = {
 
 export const allProjects: Project[] = [
   {
-    id: 5,
+    id: 8,
     client: "Client Five",
     category: "Photo",
     image: "/Images/pexels-lisa-fotios-7918258.jpg",
     href: "#",
   },
   {
-    id: 6,
+    id: 7,
     client: "Client Six",
     category: "Video",
     image: "/Images/pramod-tiwari-f8gKP82Quh4-unsplash.jpg",
     href: "#",
   },
   {
-    id: 7,
+    id: 6,
     client: "Client Seven",
     category: "Video + Photo",
     image: "/Images/lucas-kapla-R79qkPYvrcM-unsplash.jpg",
     href: "#",
   },
   {
-    id: 8,
+    id: 5,
     client: "Client Eight",
     category: "Photo",
     image: "/Images/SnapInsta.to_525899523_17918403495120722_8963852674745615430_n.jpg",
