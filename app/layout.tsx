@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from "next"
+import { Geist, Geist_Mono } from "next/font/google"
+import "./globals.css"
+import GridOverlay from "./components/GridOverlay"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-});
+})
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
+})
 
 export const metadata: Metadata = {
   title: "Tai Nguyen | Video Production & Photography Melbourne",
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_AU",
-    url: "https://tai-portfolio-zeta.vercel.app",
+    url: "https://tai-portfolio-silk.vercel.app",
     siteName: "Tai Nguyen",
     title: "Tai Nguyen | Video Production & Photography Melbourne",
     description:
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
         url: "/Images/about me-photo.jpeg",
         width: 1200,
         height: 630,
-        alt: "Tai Nguyen — Melbourne Creative",
+        alt: "Tai Nguyen - Melbourne Creative",
       },
     ],
   },
@@ -62,18 +63,22 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      {/* Grid Overlay */}
       <body className="min-h-full flex flex-col">
+        {/* {process.env.NODE_ENV === "development" && <GridOverlay />} */}
+
         {children}
+
         {/* Bottom fade */}
         <div className="fixed bottom-0 left-0 right-0 h-16 pointer-events-none z-30 backdrop-blur-sm [mask-image:linear-gradient(to_top,black_30%,transparent)]" />
       </body>
     </html>
-  );
+  )
 }

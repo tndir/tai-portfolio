@@ -38,24 +38,10 @@ body {
 /* Rotating Footer Words Animation */
 
 @keyframes spinWords {
-  0%,
-  25% {
-    transform: translateY(0);
-  }
-
-  33%,
-  58% {
-    transform: translateY(-100px);
-  }
-
-  66%,
-  91% {
-    transform: translateY(-200px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
+  0%, 28%  { transform: translateY(0px); }
+  33%, 61% { transform: translateY(-60px); }
+  66%, 94% { transform: translateY(-120px); }
+  99%, 100% { transform: translateY(-180px); }
 }
 
 /* Navbar Typing Dots Animation */
@@ -84,39 +70,29 @@ body {
     transform: translateX(-50%);
   }
 }
+@keyframes rotateWords {
+  0%,
+  28% {
+    transform: translateY(0%);
+  }
 
-/* Rotating words 2 */
-@keyframes spinWords2 {
-  0%, 25% { 
-    transform: translateY(0); 
-    filter: blur(0px);
-    opacity: 1;
+  33%,
+  61% {
+    transform: translateY(-33.333%);
   }
-  28% { 
-    filter: blur(4px);
-    opacity: 0;
+
+  66%,
+  94% {
+    transform: translateY(-66.666%);
   }
-  33%, 58% { 
-    transform: translateY(-60px); 
-    filter: blur(0px);
-    opacity: 1;
+
+  100% {
+    transform: translateY(0%);
   }
-  61% { 
-    filter: blur(4px);
-    opacity: 0;
-  }
-  66%, 91% { 
-    transform: translateY(-120px); 
-    filter: blur(0px);
-    opacity: 1;
-  }
-  94% { 
-    filter: blur(4px);
-    opacity: 0;
-  }
-  100% { 
-    transform: translateY(0); 
-    filter: blur(0px);
-    opacity: 1;
-  }
+}
+
+.animate-rotateWords {
+  display: flex;
+  flex-direction: column;
+  animation: rotateWords 8s cubic-bezier(0.76, 0, 0.24, 1) infinite;
 }

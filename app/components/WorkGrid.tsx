@@ -41,7 +41,7 @@ export default function WorkGrid() {
 
   return (
     <section id="work" className="bg-white px-8 py-24" ref={ref}>
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-5xl">
         {/* Section heading */}
         <h2 className="reveal mb-12 text-xs uppercase tracking-widest text-black/40 opacity-0 translate-y-8 blur-sm transition-all duration-700 ease-out">
           Selected Work
@@ -54,7 +54,7 @@ export default function WorkGrid() {
           ))}
         </div>
         {/* View all projects */}
-        <div className="mt-24 text-center">
+        <div className="mt-12 text-center">
           <a
             href="/work"
             className="text-lg font-black uppercase tracking-widest text-black/90 hover:text-black transition-colors duration-300"

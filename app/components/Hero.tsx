@@ -1,16 +1,20 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+
+const name = "Tai Nguyen"
+const letters = name.split("")
 
 export default function Hero() {
   const [showScroll, setShowScroll] = useState(true)
   const [isPressed, setIsPressed] = useState(false)
+  const [mouseX, setMouseX] = useState<number | null>(null)
+  const nameRef = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
     function handleScroll() {
       setShowScroll(window.scrollY < 50)
     }
-
     window.addEventListener("scroll", handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener("scroll", handleScroll)
@@ -19,11 +23,44 @@ export default function Hero() {
   function handleClick() {
     setIsPressed(true)
     setTimeout(() => setIsPressed(false), 150)
-
     const workSection = document.querySelector("#work")
     if (workSection) {
       workSection.scrollIntoView({ behavior: "smooth" })
     }
+  }
+
+  function handleMouseMove(e: React.MouseEvent) {
+    setMouseX(e.clientX)
+  }
+
+  function handleMouseLeave() {
+    setMouseX(null)
+  }
+
+  function getScaleFromMouse(index: number): number {
+    if (!mouseX || !nameRef.current) return 1
+    const spans = nameRef.current.querySelectorAll("span")
+    const span = spans[index]
+    if (!span) return 1
+    const rect = span.getBoundingClientRect()
+    const center = rect.left + rect.width / 2
+    const distance = Math.abs(mouseX - center)
+    const maxDistance = 80
+    if (distance > maxDistance) return 1
+    return 1 + 0.6 * (1 - distance / maxDistance)
+  }
+
+  function getYFromMouse(index: number): number {
+    if (!mouseX || !nameRef.current) return 0
+    const spans = nameRef.current.querySelectorAll("span")
+    const span = spans[index]
+    if (!span) return 0
+    const rect = span.getBoundingClientRect()
+    const center = rect.left + rect.width / 2
+    const distance = Math.abs(mouseX - center)
+    const maxDistance = 80
+    if (distance > maxDistance) return 0
+    return -(18 * (1 - distance / maxDistance))
   }
 
   return (
@@ -45,11 +82,21 @@ export default function Hero() {
       {/* Hero Content */}
       <div className="relative z-10 flex flex-col items-center">
         {/* Name */}
-        <h1 className="text-5xl sm:text-7xl md:text-9xl font-bold uppercase tracking-tighter text-white leading-none whitespace-nowrap">
-          {"Tai Nguyen".split("").map((letter, index) => (
+        <h1
+          ref={nameRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="text-5xl sm:text-7xl md:text-9xl font-bold uppercase tracking-tighter text-white leading-none whitespace-nowrap"
+        >
+          {letters.map((letter, index) => (
             <span
               key={index}
-              className="inline-block transition-transform duration-300 hover:-translate-y-3 hover:scale-125 cursor-default"
+              style={{
+                display: "inline-block",
+                transform: `translateY(${getYFromMouse(index)}px) scale(${getScaleFromMouse(index)})`,
+                transition: "transform 0.12s ease-out",
+                cursor: "default",
+              }}
             >
               {letter === " " ? "\u00A0" : letter}
             </span>

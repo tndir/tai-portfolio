@@ -32,7 +32,7 @@ export default function About() {
       <div className="max-w-7xl mx-auto">
         {/* Full width massive headline */}
         <h2 className="reveal opacity-0 translate-y-8 blur-sm transition-all duration-700 ease-out text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-none mb-8">
-          Hi, I&apos;m Tai — a filmmaker and creative for brands that want to
+          Hi, I&apos;m Tai - a filmmaker and creative for brands that want to
           connect.
         </h2>
 
@@ -72,6 +72,7 @@ export default function About() {
           </div>
         </div>
       </div>
+      <ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </section>
   )
 }
